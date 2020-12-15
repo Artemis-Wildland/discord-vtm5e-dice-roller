@@ -1,1 +1,8 @@
-
+{
+  "name": "Launch Program"",
+  "description": "Vampire Masquerade Dice Bot",
+  "version": "1.0.0",
+  "engines": {
+    "node": "12.x"
+  }
+}
