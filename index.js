@@ -178,4 +178,5 @@ function generateRoll(blackDice, redDice, receivedMessage, extractDiffcuitly) {
     }
 }
 
-client.login(config.token) // Bot token
+client.login(process.env.token) // Bot token
+//client.login(config.token) // Bot token
