@@ -2,7 +2,6 @@ require('dotenv').config();
 const Discord = require('discord.js')
 const client = new Discord.Client()
 //const config = require('./config.json');
-//Adding notes
 
 client.on('message', (receivedMessage) => {
     if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
@@ -179,10 +178,5 @@ function generateRoll(blackDice, getHungryDice, receivedMessage, extractDiffcuit
         receivedMessage.channel.send("```diff\n-Critical Fail\n```");
     }
 }
-
-var port = process.env.PORT || 3000;
-app.listen(port, "0.0.0.0", function() {
-console.log("Listening on Port 3000");
-});
 
 client.login(process.env.token) // Bot token
