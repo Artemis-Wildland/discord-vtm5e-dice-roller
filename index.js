@@ -48,7 +48,9 @@ function generateRoll(blackDice, getHungryDice, receivedMessage, extractDiffcuit
     let hungerResultsArray = [];
     let messyCrit = false;
 
-    for (i = 0; i < blackDice; i++) {
+     let minusHungerDice = blackDice - redDice;
+    
+    for (i = 0; i < minusHungerDice; i++) {
         let calcBlack = Math.floor(Math.random() * 10) + 1;
         blackDiceArray.push(calcBlack);
 
@@ -139,7 +141,7 @@ function generateRoll(blackDice, getHungryDice, receivedMessage, extractDiffcuit
 
     let totalSuccess = blackSuccess + redSuccess;
 
-    for (i = 0; i < blackDice; i++) {
+    for (i = 0; i < minusHungerDice; i++) {
         if (blackDiceArray[i] >= 6 && blackDiceArray[i] <= 10) {
            checkResultsArray.push(" " +blackDiceArray[i]+ " ");
         } else {
