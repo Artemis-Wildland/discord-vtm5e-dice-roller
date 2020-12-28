@@ -3,6 +3,7 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 //const config = require('./config.json');
 
+
 client.on('message', (receivedMessage) => {
     if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
         return
@@ -23,18 +24,18 @@ function processCommand(receivedMessage) {
 
     let redDice = splitCommand[2];
     let extractRedDice = redDice.replace('r', ' '); //Remove 'r' at the end to isolate hunger dice 
-
+    
     let diffcuitly = splitCommand[3];
-    let extractDiffcuitly = diffcuitly.replace('d', ' '); //Remove 'd' at the end to isolate diffcuitly dice 
+    let extractreDiffcuitly = diffcuitly.replace('d', ' '); //Remove 'd' at the end to isolate diffcuitly dice 
 
     if (primaryCommand == "r") {
-        generateRoll(extractBlackDice, extractRedDice, receivedMessage, extractDiffcuitly);
+        generateRoll(extractBlackDice, extractRedDice, receivedMessage, extractreDiffcuitly);
     } else {
         receivedMessage.channel.send("I don't understand the command. Try /r 3b 5r 3d to roll");
     }
 }
 
-function generateRoll(blackDice, redDice, receivedMessage, extractDiffcuitly) {
+function generateRoll(blackDice, getHungryDice, receivedMessage, extractDiffcuitly) {
     let i;
     const success = 1;
     let blackCritSuccessCount = 0;
@@ -47,9 +48,7 @@ function generateRoll(blackDice, redDice, receivedMessage, extractDiffcuitly) {
     let hungerResultsArray = [];
     let messyCrit = false;
 
-    let minusHungerDice = blackDice - redDice;
-
-    for (i = 0; i < minusHungerDice; i++) {
+    for (i = 0; i < blackDice; i++) {
         let calcBlack = Math.floor(Math.random() * 10) + 1;
         blackDiceArray.push(calcBlack);
 
@@ -60,7 +59,7 @@ function generateRoll(blackDice, redDice, receivedMessage, extractDiffcuitly) {
         }
     }
 
-    for (i = 0; i < redDice; i++) {
+    for (i = 0; i < getHungryDice; i++) {
         let calcRed = Math.floor(Math.random() * 10) + 1;
         redDiceArray.push(calcRed);
 
@@ -140,25 +139,25 @@ function generateRoll(blackDice, redDice, receivedMessage, extractDiffcuitly) {
 
     let totalSuccess = blackSuccess + redSuccess;
 
-    for (i = 0; i < minusHungerDice; i++) {
+    for (i = 0; i < blackDice; i++) {
         if (blackDiceArray[i] >= 6 && blackDiceArray[i] <= 10) {
-            checkResultsArray.push(" " + blackDiceArray[i] + " ");
+           checkResultsArray.push(" " +blackDiceArray[i]+ " ");
         } else {
-            checkResultsArray.push(" ~~" + blackDiceArray[i] + "~~ ");
+            checkResultsArray.push(" ~~"+blackDiceArray[i]+"~~ ");
         }
     }
 
-    for (i = 0; i < redDice; i++) {
+    for (i = 0; i < getHungryDice; i++) {
         if (redDiceArray[i] >= 6 && redDiceArray[i] <= 10) {
-            hungerResultsArray.push(" " + redDiceArray[i] + " ");
+            hungerResultsArray.push(" " +redDiceArray[i]+ " ");
         } else {
-            hungerResultsArray.push(" ~~" + redDiceArray[i] + "~~");
+            hungerResultsArray.push(" ~~"+redDiceArray[i]+"~~");
         }
     }
 
     if (totalSuccess >= extractDiffcuitly && messyCrit == false) {
-        receivedMessage.channel.send("Black Dice: " + checkResultsArray.toString());
-        receivedMessage.channel.send("Red Dice: " + hungerResultsArray.toString());
+       receivedMessage.channel.send("Black Dice: " + checkResultsArray.toString());
+       receivedMessage.channel.send("Red Dice: " + hungerResultsArray.toString());
         receivedMessage.channel.send("Total Successes: " + totalSuccess);
         receivedMessage.channel.send("```diff\n+Pass\n```");
     } else if (totalSuccess >= extractDiffcuitly && messyCrit == true) {
