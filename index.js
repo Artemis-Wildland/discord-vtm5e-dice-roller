@@ -1,6 +1,7 @@
+require('dotenv').config();
 const Discord = require('discord.js')
 const client = new Discord.Client()
-const config = require('./config.json');
+//const config = require('./config.json');
 
 client.on('message', (receivedMessage) => {
     if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
@@ -179,4 +180,3 @@ function generateRoll(blackDice, redDice, receivedMessage, extractDiffcuitly) {
 }
 
 client.login(process.env.token) // Bot token
-//client.login(config.token) // Bot token
