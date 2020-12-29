@@ -2,6 +2,10 @@ require('dotenv').config();
 const Discord = require('discord.js')
 const client = new Discord.Client()
 //const config = require('./config.json');
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
 client.on('message', (receivedMessage) => {
     if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
